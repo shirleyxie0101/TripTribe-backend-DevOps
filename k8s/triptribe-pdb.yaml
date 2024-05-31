@@ -1,0 +1,11 @@
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: $APP_NAME
+  namespace: staging
+spec:
+  maxUnavailable: 1
+  selector:
+    matchLabels:
+      run: $APP_NAME

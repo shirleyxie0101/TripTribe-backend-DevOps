@@ -1,0 +1,318 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Address {
+  formattedAddress: String!
+  location: Location
+}
+
+type Attraction {
+  _id: ID!
+  address: Address!
+  createdAt: DateTime!
+  createdUserId: ID!
+  description: String!
+  email: String!
+  name: String!
+  openHours: OpenHours!
+  overAllRating: Float
+  phone: String!
+  photos: [Photo!]!
+  updatedAt: DateTime!
+  website: String
+}
+
+type AttractionFilterResult {
+  data: [Attraction!]!
+  limit: Float!
+  skip: Float!
+  total: Float!
+}
+
+type BusinessTime {
+  isClosed: Boolean!
+  isOpenAllDay: Boolean!
+  period: [Period!]
+}
+
+input CreateAddressDto {
+  formattedAddress: String!
+  location: LocationDto!
+}
+
+input CreateBusinessTimeDto {
+  isClosed: Boolean!
+  isOpenAllDay: Boolean!
+  period: [PeriodDto!]!
+}
+
+input CreateOpenHoursDto {
+  Friday: CreateBusinessTimeDto!
+  Monday: CreateBusinessTimeDto!
+  Saturday: CreateBusinessTimeDto!
+  Sunday: CreateBusinessTimeDto!
+  Thursday: CreateBusinessTimeDto!
+  Tuesday: CreateBusinessTimeDto!
+  Wednesday: CreateBusinessTimeDto!
+}
+
+input CreatePhotoDto {
+  imageAlt: String!
+  imageType: PhotoType!
+  imageUrl: String!
+  uploadUserId: String!
+}
+
+input CreateRestaurantDto {
+  address: CreateAddressDto!
+  description: String!
+  email: String!
+  name: String!
+  openHours: CreateOpenHoursDto!
+  phone: String!
+  website: String
+}
+
+input CreateReviewDto {
+  description: String!
+  placeId: String!
+  placeType: String!
+  rating: Float!
+  title: String!
+}
+
+"""Type of Cuisine"""
+enum CuisineEnum {
+  ASIAN
+  AUSTRALIAN
+  CAFE
+  ITALIAN
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+"""Type of Duration"""
+enum DurationEnum {
+  FOUR_HOURS_TO_ONE_DAY
+  ONE_TO_FOUR_HOURS
+  UP_TO_ONE_HOUR
+}
+
+input GetAttractionListFiltersDto {
+  cost: Float
+  currentTime: DateTime
+  distance: Float
+  durations: [DurationEnum!]
+  isOpenNow: Boolean
+  location: LocationDto
+  rating: Float
+  types: [TypeEnum!]
+}
+
+input GetAttractionListInput {
+  filters: GetAttractionListFiltersDto
+  limit: Float
+  skip: Float
+  sort: String
+}
+
+input GetRestaurantListFiltersDto {
+  cost: Float
+  cuisines: [CuisineEnum!]
+  currentTime: DateTime
+  distance: Float
+  isOpenNow: Boolean
+  location: LocationDto
+  meals: [MealEnum!]
+  rating: Float
+}
+
+input GetRestaurantListInput {
+  filters: GetRestaurantListFiltersDto
+  limit: Float
+  skip: Float
+  sort: String
+}
+
+type Location {
+  lat: Float!
+  lng: Float!
+}
+
+input LocationDto {
+  lat: Float!
+  lng: Float!
+}
+
+"""Type of Meal"""
+enum MealEnum {
+  BREAKFAST
+  BRUNCH
+  DINNER
+  LUNCH
+}
+
+type Mutation {
+  """Create restaurant"""
+  createRestaurant(files: [Upload!], input: CreateRestaurantDto!): Restaurant!
+
+  """Create review"""
+  createReview(files: [Upload!], input: CreateReviewDto!): Review!
+
+  """Delete restaurant"""
+  deleteRestaurant(id: ID!): Restaurant!
+
+  """Delete review"""
+  deleteReview(id: ID!): Review!
+
+  """Update restaurant"""
+  updateRestaurant(files: [Upload!], id: ID!, input: UpdateRestaurantGQLDto!): Restaurant!
+
+  """Update review"""
+  updateReview(files: [Upload!], id: ID!, input: UpdateReviewGQLDto!): Review!
+}
+
+type OpenHours {
+  Friday: BusinessTime!
+  Monday: BusinessTime!
+  Saturday: BusinessTime!
+  Sunday: BusinessTime!
+  Thursday: BusinessTime!
+  Tuesday: BusinessTime!
+  Wednesday: BusinessTime!
+}
+
+type Period {
+  closeTime: String!
+  openTime: String!
+}
+
+input PeriodDto {
+  closeTime: String!
+  openTime: String!
+}
+
+type Photo {
+  _id: ID!
+  imageAlt: String!
+  imageType: PhotoType!
+  imageUrl: String!
+  uploadUserId: ID!
+}
+
+"""Type of photo"""
+enum PhotoType {
+  ATTRACTION
+  RESTAURANT
+  REVIEW
+  USER
+}
+
+type Query {
+  """Get all attractions or get attractions by filter"""
+  getAllAttractions(input: GetAttractionListInput!): AttractionFilterResult!
+
+  """Get all restaurants or get restaurants by filter"""
+  getAllRestaurants(input: GetRestaurantListInput!): RestaurantFilterResult!
+
+  """Get all reviews"""
+  getAllReviews: [Review!]!
+
+  """Get ME"""
+  getMe: User!
+
+  """Get restaurant by id"""
+  getOneRestaurant(id: ID!): Restaurant!
+
+  """Get review by id"""
+  getOneReview(id: ID!): Review!
+
+  """Get user by id"""
+  getOneUser(id: ID!): User!
+}
+
+type Restaurant {
+  _id: ID!
+  address: Address!
+  createdAt: DateTime!
+  createdUserId: ID!
+  description: String!
+  email: String!
+  name: String!
+  openHours: OpenHours!
+  overAllRating: Float
+  phone: String!
+  photos: [Photo!]!
+  updatedAt: DateTime!
+  website: String
+}
+
+type RestaurantFilterResult {
+  data: [Restaurant!]!
+  limit: Float!
+  skip: Float!
+  total: Float!
+}
+
+type Review {
+  _id: ID!
+  createdAt: DateTime!
+  description: String!
+  photos: [Photo!]!
+  placeId: ID!
+  placeType: String!
+  rating: Float!
+  title: String!
+  updatedAt: DateTime!
+  userId: ID!
+}
+
+"""Type of Type"""
+enum TypeEnum {
+  FUN_AND_GAMES
+  MUSEUMS
+  NATURE_AND_PARKS
+  NIGHTLIFE
+  SIGHT_AND_LANDMARKS
+}
+
+input UpdateRestaurantGQLDto {
+  address: CreateAddressDto
+  description: String
+  email: String
+  name: String
+  openHours: CreateOpenHoursDto
+  phone: String
+  photos: [CreatePhotoDto!]
+  website: String
+}
+
+input UpdateReviewGQLDto {
+  description: String
+  photos: [CreatePhotoDto!]
+  placeId: String
+  placeType: String
+  rating: Float
+  title: String
+}
+
+"""The `Upload` scalar type represents a file upload."""
+scalar Upload
+
+type User {
+  _id: ID!
+  description: String
+  email: String!
+  firstName: String
+  lastName: String
+  nickname: String!
+  permissionGroupId: ID!
+  role: String!
+  savedAttractions: [ID!]
+  savedRestaurants: [ID!]
+  userAvatar: Photo!
+}

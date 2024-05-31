@@ -1,0 +1,10 @@
+{
+  "vscode.tsc.compiler.alertOnError": "never",
+  "vscode.tsc.compiler.alertTSConfigChanges": "never",
+
+  "editor.formatOnSave": true,
+  "eslint.validate": ["typescript"],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  }
+}

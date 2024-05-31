@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: $APP_NAME
+  namespace: staging
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /api
+    alb.ingress.kubernetes.io/target-type: ip
+spec:
+  ports:
+   - port: 80
+     targetPort: 8080
+  selector:
+    run: $APP_NAME
+  type: LoadBalancer

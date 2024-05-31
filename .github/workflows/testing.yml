@@ -1,0 +1,15 @@
+name: 'coverage'
+on:
+    # triger on all pull request
+    push:
+        branches:
+            - '*'
+          
+
+jobs: 
+    # First, run unit test
+    test_and_coverage:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v3
+            - uses: ArtiomTr/jest-coverage-report-action@v2
